@@ -17,4 +17,5 @@ crate-type = ["cdylib", "staticlib", "rlib"]
 slint = "0.2.5"
 
 [build-dependencies]
+glob = "0.3.0"
 slint-build = "0.2.5"
