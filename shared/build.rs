@@ -5,10 +5,8 @@ fn main() {
     println!("cargo:rerun-if-changed=build.rs");
 
     // Rerun if any Slint-UI file was changed
-    for entry in glob("ui/**/*").expect("Failed to read glob pattern") {
-        if let Ok(path) = entry {
-            println!("cargo:rerun-if-changed={:?}", path.display())
-        }
+    for entry in glob("ui/**/*").expect("Failed to read glob pattern").flatten() {
+        println!("cargo:rerun-if-changed={:?}", entry.display())
     }
 
     // ---
