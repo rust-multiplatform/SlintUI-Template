@@ -14,3 +14,8 @@ all-tests = ["ui-tests"]
 crate-type = ["cdylib", "staticlib", "rlib"]
 
 [dependencies]
+slint = "0.2.5"
+
+[build-dependencies]
+glob = "0.3.0"
+slint-build = "0.2.5"
