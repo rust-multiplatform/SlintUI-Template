@@ -22,6 +22,8 @@ cache: cargo
 
 # Tasks
 script:
+  # Dependencies
+  - sudo apt-get install qtbase5-dev
   # Debug
   - cargo check --verbose --package shared
   - cargo build --verbose --package shared
