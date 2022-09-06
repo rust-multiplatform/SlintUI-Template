@@ -1,7 +1,7 @@
-use crate::main;
+// use crate::main;
 
-// #[test]
-// #[cfg(feature = "ui-tests")]
-// fn check_main_exists() {
-//     main();
-// }
+// // #[test]
+// // #[cfg(feature = "ui-tests")]
+// // fn check_main_exists() {
+// //     main();
+// // }
