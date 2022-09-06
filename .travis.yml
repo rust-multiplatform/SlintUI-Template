@@ -23,9 +23,10 @@ cache: cargo
 # Tasks
 script:
   # Dependencies
-  - sudo apt-get search qt
-  - sudo apt-get search qt5
-  - sudo apt-get search qt4
+  - sudo apt-get update && sudo apt-get upgrade -y
+  - sudo apt search qt
+  - sudo apt search qt5
+  - sudo apt search qt4
   - sudo apt-get install build-essential g++ libqt4-core libqt4-dev
   # Debug
   - cargo check --verbose --package shared
