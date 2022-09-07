@@ -21,7 +21,6 @@ rust:
 cache: cargo
 
 before_install:
-  - apt-get search qt6
   - sudo apt-get install qt6-base-dev qt6-base-dev-tools
 
 # Tasks
