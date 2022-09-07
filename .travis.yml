@@ -23,7 +23,7 @@ cache: cargo
 # Tasks
 script:
   # Dependencies
-  - sudo apt-get install pyqt5-dev pyqt5-dev-tools qt5-default
+  - sudo apt-get install pyqt5-dev pyqt5-dev-tools qt5-default qtbase5-dev qtbase5-dev-tools qttools5-dev qttools5-dev-tools
   # Debug
   - cargo check --verbose --package shared
   - cargo build --verbose --package shared
