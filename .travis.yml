@@ -23,7 +23,7 @@ cache: cargo
 # Tasks
 script:
   # Dependencies
-  - sudo apt-get install build-essential g++ qt4-dev-tools qt5-dev-tools
+  - sudo apt-get install pyqt5-dev pyqt5-dev-tools qt5-default
   # Debug
   - cargo check --verbose --package shared
   - cargo build --verbose --package shared
