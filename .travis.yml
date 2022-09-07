@@ -20,9 +20,6 @@ rust:
 # Use a cache for cargo
 cache: cargo
 
-before_install:
-  - sudo apt-get install qt6-base-dev qt6-base-dev-tools
-
 # Tasks
 script:
   # Debug
