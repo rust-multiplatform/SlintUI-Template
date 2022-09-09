@@ -20,6 +20,11 @@ rust:
 # Use a cache for cargo
 cache: cargo
 
+before_script:
+  - sudo apt search qjson
+  - sudo apt search qt
+  - sudo apt list --installed
+
 # Tasks
 script:
   # Debug
