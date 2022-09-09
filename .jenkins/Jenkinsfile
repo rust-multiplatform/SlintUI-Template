@@ -1,47 +1,59 @@
 pipeline {
     agent {
+        // If you need a special Jenkins Agent to run docker, specify the label **here and below**
         label 'docker'
     }
     options {
+        // Disables concurrent builds
+        // I.e. only one build at a time
         disableConcurrentBuilds()
     }
     stages {
-        stage('Docker :: Rust Versions') {
+        stage('Rust Versions') {
             agent {
                 docker { 
+                    // Which image to use
                     image 'rust:latest' 
+                    // Reuse the same node, avoids having to clone the repository on all nodes
                     reuseNode true
                 }
             }
             steps {
+                // Print out versions
                 sh 'rustc --version'
                 sh 'cargo --version'
                 sh 'rustup --version'
             }
         }
-        stage('Docker :: Rust Check') {
+        stage('Rust Check') {
             agent {
                 docker { 
+                    // Which image to use
                     image 'rust:latest' 
+                    // Reuse the same node, avoids having to clone the repository on all nodes
                     reuseNode true
                 }
             }
             steps {
+                // Run a check
                 sh 'cargo check'
             }
         }
-        stage('Docker :: Rust Build (Debug)') {
+        stage('Rust Build (Debug)') {
             agent {
                 docker { 
+                    // Which image to use
                     image 'rust:latest' 
+                    // Reuse the same node, avoids having to clone the repository on all nodes
                     reuseNode true
                 }
             }
             steps {
+                // Debug Build
                 sh 'cargo build'
             }
         }
-        stage('Docker :: Rust Build (Release)') {
+        stage('Rust Build (Release)') {
             agent {
                 docker { 
                     image 'rust:latest' 
@@ -49,41 +61,34 @@ pipeline {
                 }
             }
             steps {
+                // Release build
                 sh 'cargo build --release'
             }
         }
-        stage('Rust :: Rust Versions') {
+        stage('Rust Test (Debug)') {
             agent {
-                label 'docker'
+                docker { 
+                    // Which image to use
+                    image 'rust:latest' 
+                    // Reuse the same node, avoids having to clone the repository on all nodes
+                    reuseNode true
+                }
             }
             steps {
-                sh '. "$HOME/.cargo/env" && rustc --version'
-                sh '. "$HOME/.cargo/env" && cargo --version'
-                sh '. "$HOME/.cargo/env" && rustup --version'
+                // Debug Test
+                sh 'cargo test --no-default-features'
             }
         }
-        stage('Rust :: Rust Check') {
+        stage('Rust Test (Release)') {
             agent {
-                label 'docker'
+                docker { 
+                    image 'rust:latest' 
+                    reuseNode true
+                }
             }
             steps {
-                sh '. "$HOME/.cargo/env" && cargo check'
-            }
-        }
-        stage('Rust :: Rust Build (Debug)') {
-            agent {
-                label 'docker'
-            }
-            steps {
-                sh '. "$HOME/.cargo/env" && cargo build'
-            }
-        }
-        stage('Rust :: Rust Build (Release)') {
-            agent {
-                label 'docker'
-            }
-            steps {
-                sh '. "$HOME/.cargo/env" && cargo build --release'
+                // Release Test
+                sh 'cargo test --no-default-features --release'
             }
         }
     }

@@ -1,4 +1,4 @@
-# Rust Multi-Platform Base Project Template
+# Rust Multi-Platform Slint-UI Template
 
 > ⚠️ THIS IS A TEMPLATE. ⚠️
 
@@ -7,7 +7,7 @@ This project is supported by the following platforms:
 - ✅ Platform: Windows
 - ✅ Platform: Linux
 - ✅ Platform: macOS
-- ✅ Platform: Android
+- ⚠️ Platform: Android (EGL issue, see [here](https://github.com/slint-ui/slint/issues/46))
 - ✅ Platform: iOS
 - ✅ Platform: WebAssembly (⚠️ Only the WASM & JS side, still needs a web-server or bundler and HTML/CSS part)
 
@@ -232,15 +232,21 @@ There is the [Docker-OSX](https://github.com/sickcodes/Docker-OSX) project which
 
 Windows builds would also be much easier if we'd have an agent for it.
 
+### CI Platform: AppVeyor
+
+[![Build status](https://ci.appveyor.com/api/projects/status/nsffumoc868yqsrj/branch/main?svg=true)](https://ci.appveyor.com/project/Sakul6499/base-project-template/branch/main)
+
+Simple pipeline to showcase the usage of Rust on AppVeyor.  
+Linux only currently, but [Windows](https://www.appveyor.com/docs/windows-images-software/) and [macOS](https://www.appveyor.com/docs/macos-images-software/) are possible.
+
 ### CI Platform: Jenkins
 
-[![Build Status](https://jenkins.sakul6499.de/job/Rust-Multiplatform/job/Base-Project-Template/job/main/badge/icon)](https://jenkins.sakul6499.de/job/Rust-Multiplatform/job/Base-Project-Template/job/main/)
+[![Build Status](https://jenkins.sakul-flee.de/buildStatus/icon?job=github_rust_multiplatform%2FBase-Project-Template%2Fmain)](https://jenkins.sakul-flee.de/job/github_rust_multiplatform/job/Base-Project-Template/job/main/)
 
 [Jenkins](https://www.jenkins.io/) is another multi-purpose self-hosted CI platform.
 
 The configuration file can be found under `.jenkins/Jenkinsfile` and includes both: A Docker build version using the official [Rust Docker Image](https://hub.docker.com/_/rust) and a native installation (local Agent with [Rustup.rs](https://rustup.rs/) installed).  
 **You won't need both**, exclude whatever configuration you won't need.
-
 
 ## Coverage
 
