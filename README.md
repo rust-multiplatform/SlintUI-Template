@@ -234,7 +234,7 @@ Windows builds would also be much easier if we'd have an agent for it.
 
 ### CI Platform: AppVeyor
 
-[![Build status](https://ci.appveyor.com/api/projects/status/nsffumoc868yqsrj/branch/main?svg=true)](https://ci.appveyor.com/project/Sakul6499/base-project-template/branch/main)
+[![Build status](https://ci.appveyor.com/api/projects/status/2hgtwvmioidwap23/branch/main?svg=true)](https://ci.appveyor.com/project/Sakul6499/slintui-template/branch/main)
 
 Simple pipeline to showcase the usage of Rust on AppVeyor.  
 Linux only currently, but [Windows](https://www.appveyor.com/docs/windows-images-software/) and [macOS](https://www.appveyor.com/docs/macos-images-software/) are possible.
