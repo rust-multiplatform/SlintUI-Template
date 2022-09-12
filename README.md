@@ -1,4 +1,4 @@
-# Rust Multi-Platform Base Project Template
+# Rust Multi-Platform Slint-UI Template
 
 > ⚠️ THIS IS A TEMPLATE. ⚠️
 
@@ -7,7 +7,7 @@ This project is supported by the following platforms:
 - ✅ Platform: Windows
 - ✅ Platform: Linux
 - ✅ Platform: macOS
-- ✅ Platform: Android
+- ⚠️ Platform: Android (EGL issue, see [here](https://github.com/slint-ui/slint/issues/46))
 - ✅ Platform: iOS
 - ✅ Platform: WebAssembly (⚠️ Only the WASM & JS side, still needs a web-server or bundler and HTML/CSS part)
 
@@ -234,7 +234,7 @@ Windows builds would also be much easier if we'd have an agent for it.
 
 ### CI Platform: AppVeyor
 
-[![Build status](https://ci.appveyor.com/api/projects/status/nsffumoc868yqsrj/branch/main?svg=true)](https://ci.appveyor.com/project/Sakul6499/base-project-template/branch/main)
+[![Build status](https://ci.appveyor.com/api/projects/status/2hgtwvmioidwap23/branch/main?svg=true)](https://ci.appveyor.com/project/Sakul6499/slintui-template/branch/main)
 
 Simple pipeline to showcase the usage of Rust on AppVeyor.  
 Linux only currently, but [Windows](https://www.appveyor.com/docs/windows-images-software/) and [macOS](https://www.appveyor.com/docs/macos-images-software/) are possible.

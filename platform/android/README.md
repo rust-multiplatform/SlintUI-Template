@@ -6,6 +6,12 @@
 This is the platform-specific project for the platform Android.  
 Make sure to check the shared crate as we depend on it.
 
+⚠️⚠️⚠️  
+Android is currently **NOT** supported by SlintUI.  
+There seems to be some incompatibility issue with glutin/EGL.
+They have it on their [roadmap](https://github.com/slint-ui/slint/issues/46).  
+⚠️⚠️⚠️
+
 ## How does this work?
 
 Rust is a cross-platform language that supports many different architectures and platforms.  
