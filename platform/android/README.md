@@ -316,6 +316,27 @@ It enables you to use the command-line tools in e.g. VSCode while debugging is p
 
 **Furthermore, in case `cargo-apk` has trouble finding the Android SDK/Tools after only installing Android Studio: This should fix it.**
 
+## Rust Setup
+
+To build an Android compatible binary/library from Rust, we need to install the Android-targets for Rust first.
+
+Using [RustUp.rs](https://rustup.rs) we can simply and quickly add target architectures to our toolchain:
+
+```bash
+rustup target add aarch64-linux-android 
+rustup target add arm-linux-androideabi 
+rustup target add armv7-linux-androideabi 
+rustup target add i686-linux-android 
+rustup target add thumbv7neon-linux-androideabi 
+rustup target add x86_64-linux-android 
+```
+
+> Note: Depending on what Android Architecture you are targeting, you only need to install the required targets.
+
+There is no direct correlation to Android versions here.  
+**However, the `ndk-glue` crate is very dependent on various Rust and Android-NDK versions.**
+Check their [matrix here](https://github.com/rust-windowing/android-ndk-rs/blob/master/README.md#supported-ndk-versions) to learn more.
+
 ## Building
 
 |                         | Host: Windows                                                                                                                                                                                                                                                    | Host: Linux                                                                                                                                                                     | Host: macOS                                                                                                                                    |
