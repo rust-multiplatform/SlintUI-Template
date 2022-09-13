@@ -7,7 +7,6 @@ addons:
       - sourceline: "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     packages:
       - docker
-      - docker-compose
 
 # Pre-Build
 before_script:
