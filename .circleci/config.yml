@@ -30,6 +30,8 @@ jobs:
     steps:
       - checkout
       - run: cargo --version
+    
+      - run: apt-get install -y libfontconfig-dev
 
       # Build
       - run:
@@ -290,6 +292,8 @@ jobs:
     steps:
       - checkout
       - run: cargo --version
+    
+      - run: apt-get install -y libfontconfig-dev
 
       # Build
       - run:
