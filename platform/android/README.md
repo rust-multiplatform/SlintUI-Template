@@ -6,6 +6,12 @@
 This is the platform-specific project for the platform Android.  
 Make sure to check the shared crate as we depend on it.
 
+⚠️⚠️⚠️  
+Android is currently **NOT** supported by SlintUI.  
+There seems to be some incompatibility issue with glutin/EGL.
+They have it on their [roadmap](https://github.com/slint-ui/slint/issues/46).  
+⚠️⚠️⚠️
+
 ## How does this work?
 
 Rust is a cross-platform language that supports many different architectures and platforms.  
@@ -315,6 +321,27 @@ This method is the best of both paths.
 It enables you to use the command-line tools in e.g. VSCode while debugging is possible in Android Studio.
 
 **Furthermore, in case `cargo-apk` has trouble finding the Android SDK/Tools after only installing Android Studio: This should fix it.**
+
+## Rust Setup
+
+To build an Android compatible binary/library from Rust, we need to install the Android-targets for Rust first.
+
+Using [RustUp.rs](https://rustup.rs) we can simply and quickly add target architectures to our toolchain:
+
+```bash
+rustup target add aarch64-linux-android 
+rustup target add arm-linux-androideabi 
+rustup target add armv7-linux-androideabi 
+rustup target add i686-linux-android 
+rustup target add thumbv7neon-linux-androideabi 
+rustup target add x86_64-linux-android 
+```
+
+> Note: Depending on what Android Architecture you are targeting, you only need to install the required targets.
+
+There is no direct correlation to Android versions here.  
+**However, the `ndk-glue` crate is very dependent on various Rust and Android-NDK versions.**
+Check their [matrix here](https://github.com/rust-windowing/android-ndk-rs/blob/master/README.md#supported-ndk-versions) to learn more.
 
 ## Building
 
