@@ -190,7 +190,7 @@ On CircleCI we also support each package, but we only have one badge for the who
 
 ### CI Platform: Travis
 
-[![Build Status](https://app.travis-ci.com/rust-multiplatform/Base-Project-Template.svg?branch=main)](https://app.travis-ci.com/rust-multiplatform/Base-Project-Template)
+[![Build Status](https://app.travis-ci.com/rust-multiplatform/SlintUI-Template.svg?branch=main)](https://app.travis-ci.com/rust-multiplatform/SlintUI-Template)
 
 On Travis we only build for Windows, macOS and Linux.
 Android and iOS _would_ be possible, however it requires a lot more work.
