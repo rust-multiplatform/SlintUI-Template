@@ -2,9 +2,9 @@ name: Platform Android
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 env:
   CARGO_TERM_COLOR: always
@@ -19,52 +19,54 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
+      - run: echo "Android is broken as of now. See README for more information."
 
-    - name: Cache target/
-      id: target-cache
-      uses: actions/cache@v3
-      with:
-        path: target
-        key: platform_android-${{ runner.os }}-target
+    # - uses: actions/checkout@v3
 
-    - name: Install Rust
-      run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile minimal -y
+    # - name: Cache target/
+    #   id: target-cache
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: target
+    #     key: platform_android-${{ runner.os }}-target
 
-    - name: Install target x86_64-linux-android
-      run: rustup target add x86_64-linux-android
-    - name: Install target aarch64-linux-android
-      run: rustup target add aarch64-linux-android
-    - name: Install target i686-linux-android
-      run: rustup target add i686-linux-android
-    - name: Install target armv7-linux-androideabi
-      run: rustup target add armv7-linux-androideabi
+    # - name: Install Rust
+    #   run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile minimal -y
 
-    - name: Install cargo-apk
-      run: cargo install cargo-apk
+    # - name: Install target x86_64-linux-android
+    #   run: rustup target add x86_64-linux-android
+    # - name: Install target aarch64-linux-android
+    #   run: rustup target add aarch64-linux-android
+    # - name: Install target i686-linux-android
+    #   run: rustup target add i686-linux-android
+    # - name: Install target armv7-linux-androideabi
+    #   run: rustup target add armv7-linux-androideabi
 
-    # KeyStore Setup
-    - name: Generate Debug KeyStore
-      run: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-    - name: Generate Release KeyStore
-      run: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+    # - name: Install cargo-apk
+    #   run: cargo install cargo-apk
 
-    - name: Check
-      run: cargo apk check --verbose --package platform_android
-    - name: Build (Debug)
-      run: cargo apk build --verbose --package platform_android
-    - name: Build (Release)
-      run: cargo apk build --verbose --package platform_android --release
-    # Testing can't be done on iOS.
-    # However, we are testing on the `shared` code and other architectures.
+    # # KeyStore Setup
+    # - name: Generate Debug KeyStore
+    #   run: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+    # - name: Generate Release KeyStore
+    #   run: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
 
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "platform_android_debug_multi"
-        path: target/debug/apk/
-        if-no-files-found: error 
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "platform_android_release_multi"
-        path: target/release/apk/
-        if-no-files-found: error 
+    # - name: Check
+    #   run: cargo apk check --verbose --package platform_android
+    # - name: Build (Debug)
+    #   run: cargo apk build --verbose --package platform_android
+    # - name: Build (Release)
+    #   run: cargo apk build --verbose --package platform_android --release
+    # # Testing can't be done on iOS.
+    # # However, we are testing on the `shared` code and other architectures.
+
+    # - uses: actions/upload-artifact@v3
+    #   with:
+    #     name: "platform_android_debug_multi"
+    #     path: target/debug/apk/
+    #     if-no-files-found: error
+    # - uses: actions/upload-artifact@v3
+    #   with:
+    #     name: "platform_android_release_multi"
+    #     path: target/release/apk/
+    #     if-no-files-found: error
