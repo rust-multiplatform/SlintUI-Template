@@ -293,6 +293,7 @@ jobs:
       - checkout
       - run: cargo --version
     
+      - run: sudo apt-get update
       - run: sudo apt-get install -y libfontconfig-dev libx11-xcb-dev
 
       # Build
