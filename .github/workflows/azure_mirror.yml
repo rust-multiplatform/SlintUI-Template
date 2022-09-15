@@ -12,7 +12,6 @@ jobs:
     - uses: actions/checkout@v3
     - run: git fetch --unshallow origin
     - run: git fetch --prune --all
-    - run: git push --prune "https://me:$AZURE_TOKEN@dev.azure.com/Rust-Multiplatform/Base%20Project%20Template/_git/Base%20Project%20Template" +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
+    - run: git push --prune "https://me:$AZURE_TOKEN@dev.azure.com/Rust-Multiplatform/SlintUI%20Template/_git/SlintUI%20Template" +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
       env:
         AZURE_TOKEN: ${{ secrets.AZURE_TOKEN }}
-
