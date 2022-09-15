@@ -18,7 +18,7 @@ workflows:
       - platform_macos
       - platform_windows
     #   - platform_android
-      - platform_ios
+    #   - platform_ios
       - platform_webassembly
       - shared
 
@@ -192,65 +192,65 @@ jobs:
     #   - store_artifacts:
     #       path: target/release/apk/
 
-  platform_ios:
-    macos:
-      xcode: 13.4.1
+#   platform_ios:
+#     macos:
+#       xcode: 13.4.1
 
-    steps:
-      - checkout
+#     steps:
+#       - checkout
       
-      # Setup
-      - run:
-          name: Install Brew
-          command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - run:
-          name: Install XCodeGen
-          command: brew install xcodegen
-      - run:
-          name: Install JQ
-          command: brew install jq
-      - run: 
-          name: Install Rust
-          command: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-      - run:
-          name: Install Rust targets
-          command: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
-      - run:
-          name: Install Cargo-XCodeBuild
-          command: cargo install cargo-xcodebuild
-      - run: cargo --version
+#       # Setup
+#       - run:
+#           name: Install Brew
+#           command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#       - run:
+#           name: Install XCodeGen
+#           command: brew install xcodegen
+#       - run:
+#           name: Install JQ
+#           command: brew install jq
+#       - run: 
+#           name: Install Rust
+#           command: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+#       - run:
+#           name: Install Rust targets
+#           command: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
+#       - run:
+#           name: Install Cargo-XCodeBuild
+#           command: cargo install cargo-xcodebuild
+#       - run: cargo --version
 
-      - run:
-          name: Copy original Cargo.toml
-          command: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
-      - run:
-          name: Available Device IDs
-          command: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
-      - run:
-          name: Selected Device ID
-          command: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
-      - run:
-          name: Change Device ID
-          command: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
-      - run:
-          name: Diff changes in Cargo.toml
-          command: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
+#       - run:
+#           name: Copy original Cargo.toml
+#           command: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
+#       - run:
+#           name: Available Device IDs
+#           command: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
+#       - run:
+#           name: Selected Device ID
+#           command: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
+#       - run:
+#           name: Change Device ID
+#           command: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
+#       - run:
+#           name: Diff changes in Cargo.toml
+#           command: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
 
-      # Build
-      - run:
-          name: Build (debug)
-          command: cargo xcodebuild build --package platform_ios
-      - run:
-          name: Build (release)
-          command: cargo xcodebuild build --package platform_ios --release
+#       # Build
+#       - run:
+#           name: Build (debug)
+#           command: cargo xcodebuild build --package platform_ios
+#       - run:
+#           name: Build (release)
+#           command: cargo xcodebuild build --package platform_ios --release
 
-      # There are no tests we can run on android like this
+#       # There are no tests we can run on android like this
 
-      # Upload Artifacts
-      - store_artifacts:
-          path: target/xcodegen/platform_ios/build/Build/Products/Debug-iphonesimulator
-      - store_artifacts:
-          path: target/xcodegen/platform_ios/build/Build/Products/Release-iphonesimulator
+#       # Upload Artifacts
+#       - store_artifacts:
+#           path: target/xcodegen/platform_ios/build/Build/Products/Debug-iphonesimulator
+#       - store_artifacts:
+#           path: target/xcodegen/platform_ios/build/Build/Products/Release-iphonesimulator
   
   platform_webassembly:
     docker:
