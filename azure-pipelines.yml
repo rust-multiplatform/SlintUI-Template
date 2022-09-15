@@ -441,148 +441,148 @@ stages:
 
 
 
-  - stage: Android
-    dependsOn: Linux
-    pool: 
-      vmImage: ubuntu-latest
-    jobs:
-      - job: Cargo_Check_Debug
-        dependsOn: []
-        steps:
-          - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-            displayName: Install Rust
+  # - stage: Android
+  #   dependsOn: Linux
+  #   pool: 
+  #     vmImage: ubuntu-latest
+  #   jobs:
+  #     - job: Cargo_Check_Debug
+  #       dependsOn: []
+  #       steps:
+  #         - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+  #           displayName: Install Rust
           
-          - bash: rustc --version && cargo --version
-            displayName: Print Rust & Cargo versions
+  #         - bash: rustc --version && cargo --version
+  #           displayName: Print Rust & Cargo versions
 
-          # KeyStore Setup
-          - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-            displayName: Generate Debug KeyStore
-          - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-            displayName: Generate Release KeyStore
+  #         # KeyStore Setup
+  #         - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+  #           displayName: Generate Debug KeyStore
+  #         - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+  #           displayName: Generate Release KeyStore
           
-          - bash: cargo install cargo-apk
-            displayName: Install Cargo-APK
+  #         - bash: cargo install cargo-apk
+  #           displayName: Install Cargo-APK
 
-          - bash: rustup target add x86_64-linux-android
-            displayName: Install Rust target x86_64-linux-android
+  #         - bash: rustup target add x86_64-linux-android
+  #           displayName: Install Rust target x86_64-linux-android
 
-          - bash: rustup target add aarch64-linux-android
-            displayName: Install Rust target aarch64-linux-android
+  #         - bash: rustup target add aarch64-linux-android
+  #           displayName: Install Rust target aarch64-linux-android
 
-          - bash: rustup target add i686-linux-android
-            displayName: Install Rust target i686-linux-android
+  #         - bash: rustup target add i686-linux-android
+  #           displayName: Install Rust target i686-linux-android
 
-          - bash: rustup target add armv7-linux-androideabi
-            displayName: Install Rust target armv7-linux-androideabi
+  #         - bash: rustup target add armv7-linux-androideabi
+  #           displayName: Install Rust target armv7-linux-androideabi
 
-          - bash: cargo apk check --verbose --package platform_android
-            displayName: Cargo Check (Debug)
+  #         - bash: cargo apk check --verbose --package platform_android
+  #           displayName: Cargo Check (Debug)
 
-      - job: Cargo_Check_Release
-        dependsOn: []
-        steps:
-          - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-            displayName: Install Rust
+  #     - job: Cargo_Check_Release
+  #       dependsOn: []
+  #       steps:
+  #         - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+  #           displayName: Install Rust
           
-          - bash: rustc --version && cargo --version
-            displayName: Print Rust & Cargo versions
+  #         - bash: rustc --version && cargo --version
+  #           displayName: Print Rust & Cargo versions
 
-          # KeyStore Setup
-          - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-            displayName: Generate Debug KeyStore
-          - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-            displayName: Generate Release KeyStore
+  #         # KeyStore Setup
+  #         - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+  #           displayName: Generate Debug KeyStore
+  #         - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+  #           displayName: Generate Release KeyStore
 
-          - bash: cargo install cargo-apk
-            displayName: Install Cargo-APK
+  #         - bash: cargo install cargo-apk
+  #           displayName: Install Cargo-APK
 
-          - bash: rustup target add x86_64-linux-android
-            displayName: Install Rust target x86_64-linux-android
+  #         - bash: rustup target add x86_64-linux-android
+  #           displayName: Install Rust target x86_64-linux-android
             
-          - bash: rustup target add aarch64-linux-android
-            displayName: Install Rust target aarch64-linux-android
+  #         - bash: rustup target add aarch64-linux-android
+  #           displayName: Install Rust target aarch64-linux-android
             
-          - bash: rustup target add i686-linux-android
-            displayName: Install Rust target i686-linux-android
+  #         - bash: rustup target add i686-linux-android
+  #           displayName: Install Rust target i686-linux-android
             
-          - bash: rustup target add armv7-linux-androideabi
-            displayName: Install Rust target armv7-linux-androideabi
+  #         - bash: rustup target add armv7-linux-androideabi
+  #           displayName: Install Rust target armv7-linux-androideabi
             
-          - bash: cargo apk check --verbose --package platform_android --release
-            displayName: Cargo Check (Release)
+  #         - bash: cargo apk check --verbose --package platform_android --release
+  #           displayName: Cargo Check (Release)
 
-      - job: Cargo_Build_Debug
-        dependsOn: []
-        steps:
-          - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-            displayName: Install Rust
+  #     - job: Cargo_Build_Debug
+  #       dependsOn: []
+  #       steps:
+  #         - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+  #           displayName: Install Rust
           
-          - bash: rustc --version && cargo --version
-            displayName: Print Rust & Cargo versions
+  #         - bash: rustc --version && cargo --version
+  #           displayName: Print Rust & Cargo versions
 
-          # KeyStore Setup
-          - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-            displayName: Generate Debug KeyStore
-          - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-            displayName: Generate Release KeyStore
+  #         # KeyStore Setup
+  #         - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+  #           displayName: Generate Debug KeyStore
+  #         - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+  #           displayName: Generate Release KeyStore
 
-          - bash: cargo install cargo-apk
-            displayName: Install Cargo-APK
+  #         - bash: cargo install cargo-apk
+  #           displayName: Install Cargo-APK
 
-          - bash: rustup target add x86_64-linux-android
-            displayName: Install Rust target x86_64-linux-android
+  #         - bash: rustup target add x86_64-linux-android
+  #           displayName: Install Rust target x86_64-linux-android
             
-          - bash: rustup target add aarch64-linux-android
-            displayName: Install Rust target aarch64-linux-android
+  #         - bash: rustup target add aarch64-linux-android
+  #           displayName: Install Rust target aarch64-linux-android
             
-          - bash: rustup target add i686-linux-android
-            displayName: Install Rust target i686-linux-android
+  #         - bash: rustup target add i686-linux-android
+  #           displayName: Install Rust target i686-linux-android
             
-          - bash: rustup target add armv7-linux-androideabi
-            displayName: Install Rust target armv7-linux-androideabi
+  #         - bash: rustup target add armv7-linux-androideabi
+  #           displayName: Install Rust target armv7-linux-androideabi
             
-          - bash: cargo apk build --verbose --package platform_android
-            displayName: Cargo Build (Debug)
+  #         - bash: cargo apk build --verbose --package platform_android
+  #           displayName: Cargo Build (Debug)
           
-          - publish: target/
-            artifact: Upload Android Artifacts (Debug)
+  #         - publish: target/
+  #           artifact: Upload Android Artifacts (Debug)
 
-      - job: Cargo_Build_Release
-        dependsOn: []
-        steps:
-          - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-            displayName: Install Rust
+      # - job: Cargo_Build_Release
+      #   dependsOn: []
+      #   steps:
+      #     - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+      #       displayName: Install Rust
           
-          - bash: rustc --version && cargo --version
-            displayName: Print Rust & Cargo versions
+      #     - bash: rustc --version && cargo --version
+      #       displayName: Print Rust & Cargo versions
 
-          # KeyStore Setup
-          - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-            displayName: Generate Debug KeyStore
-          - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
-            displayName: Generate Release KeyStore
+      #     # KeyStore Setup
+      #     - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore debug.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+      #       displayName: Generate Debug KeyStore
+      #     - bash: cd platform/android/.android && echo -e "android\nandroid\n\n\n\n\n\n\nyes" | keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000
+      #       displayName: Generate Release KeyStore
 
-          - bash: cargo install cargo-apk
-            displayName: Install Cargo-APK
+      #     - bash: cargo install cargo-apk
+      #       displayName: Install Cargo-APK
 
-          - bash: rustup target add x86_64-linux-android
-            displayName: Install Rust target x86_64-linux-android
+      #     - bash: rustup target add x86_64-linux-android
+      #       displayName: Install Rust target x86_64-linux-android
             
-          - bash: rustup target add aarch64-linux-android
-            displayName: Install Rust target aarch64-linux-android
+      #     - bash: rustup target add aarch64-linux-android
+      #       displayName: Install Rust target aarch64-linux-android
             
-          - bash: rustup target add i686-linux-android
-            displayName: Install Rust target i686-linux-android
+      #     - bash: rustup target add i686-linux-android
+      #       displayName: Install Rust target i686-linux-android
             
-          - bash: rustup target add armv7-linux-androideabi
-            displayName: Install Rust target armv7-linux-androideabi
+      #     - bash: rustup target add armv7-linux-androideabi
+      #       displayName: Install Rust target armv7-linux-androideabi
             
-          - bash: cargo apk build --verbose --package platform_android --release
-            displayName: Cargo Build (Release)
+      #     - bash: cargo apk build --verbose --package platform_android --release
+      #       displayName: Cargo Build (Release)
 
-          - publish: target/
-            artifact: Upload Android Artifacts (Release)
+      #     - publish: target/
+      #       artifact: Upload Android Artifacts (Release)
 
 
 
