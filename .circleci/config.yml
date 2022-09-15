@@ -17,7 +17,7 @@ workflows:
       - platform_linux
       - platform_macos
       - platform_windows
-      - platform_android
+    #   - platform_android
       - platform_ios
       - platform_webassembly
       - shared
