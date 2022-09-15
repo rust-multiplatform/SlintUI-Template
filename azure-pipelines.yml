@@ -272,172 +272,172 @@ stages:
 
 
 
-  - stage: iOS
-    dependsOn: macOS
-    pool: 
-      vmImage: macos-latest
-    jobs:
-      - job: Cargo_Check_Debug
-        dependsOn: [] 
-        steps:
-          - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-            displayName: Install Rust
+  # - stage: iOS
+  #   dependsOn: macOS
+  #   pool: 
+  #     vmImage: macos-latest
+  #   jobs:
+  #     - job: Cargo_Check_Debug
+  #       dependsOn: [] 
+  #       steps:
+  #         - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+  #           displayName: Install Rust
           
-          - bash: rustc --version && cargo --version
-            displayName: Print Rust & Cargo versions
+  #         - bash: rustc --version && cargo --version
+  #           displayName: Print Rust & Cargo versions
 
-          - bash: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
-            displayName: Install Rust targets
+  #         - bash: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
+  #           displayName: Install Rust targets
 
-          - bash: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            displayName: Install brew.sh
+  #         - bash: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  #           displayName: Install brew.sh
           
-          - bash: brew install xcodegen
-            displayName: Install XCodeGen
+  #         - bash: brew install xcodegen
+  #           displayName: Install XCodeGen
 
-          - bash: cargo install cargo-xcodebuild
-            displayName: Install XCodeBuild
+  #         - bash: cargo install cargo-xcodebuild
+  #           displayName: Install XCodeBuild
 
-          - bash: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
-            displayName: Copy original Cargo.toml
+  #         - bash: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
+  #           displayName: Copy original Cargo.toml
 
-          - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
-            displayName: Available Device IDs
+  #         - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
+  #           displayName: Available Device IDs
 
-          - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
-            displayName: Selected Device ID
+  #         - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
+  #           displayName: Selected Device ID
 
-          - bash: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
-            displayName: Change Device ID
+  #         - bash: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
+  #           displayName: Change Device ID
               
-          - bash: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
-            displayName: Diff changes in Cargo.toml
+  #         - bash: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
+  #           displayName: Diff changes in Cargo.toml
 
-          - bash: cargo xcodebuild check --verbose --package platform_ios
-            displayName: Cargo Check (Debug)
+  #         - bash: cargo xcodebuild check --verbose --package platform_ios
+  #           displayName: Cargo Check (Debug)
 
-      - job: Cargo_Check_Release
-        dependsOn: [] 
-        steps:
-          - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-            displayName: Install Rust
+  #     - job: Cargo_Check_Release
+  #       dependsOn: [] 
+  #       steps:
+  #         - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+  #           displayName: Install Rust
           
-          - bash: rustc --version && cargo --version
-            displayName: Print Rust & Cargo versions
+  #         - bash: rustc --version && cargo --version
+  #           displayName: Print Rust & Cargo versions
 
-          - bash: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
-            displayName: Install Rust targets
+  #         - bash: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
+  #           displayName: Install Rust targets
 
-          - bash: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            displayName: Install brew.sh
+  #         - bash: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  #           displayName: Install brew.sh
           
-          - bash: brew install xcodegen
-            displayName: Install XCodeGen
+  #         - bash: brew install xcodegen
+  #           displayName: Install XCodeGen
 
-          - bash: cargo install cargo-xcodebuild
-            displayName: Install XCodeBuild
+  #         - bash: cargo install cargo-xcodebuild
+  #           displayName: Install XCodeBuild
 
-          - bash: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
-            displayName: Copy original Cargo.toml
+  #         - bash: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
+  #           displayName: Copy original Cargo.toml
 
-          - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
-            displayName: Available Device IDs
+  #         - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
+  #           displayName: Available Device IDs
 
-          - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
-            displayName: Selected Device ID
+  #         - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
+  #           displayName: Selected Device ID
 
-          - bash: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
-            displayName: Change Device ID
+  #         - bash: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
+  #           displayName: Change Device ID
               
-          - bash: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
-            displayName: Diff changes in Cargo.toml
+  #         - bash: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
+  #           displayName: Diff changes in Cargo.toml
 
-          - bash: cargo xcodebuild check --verbose --package platform_ios --release
-            displayName: Cargo Check (Release)
+  #         - bash: cargo xcodebuild check --verbose --package platform_ios --release
+  #           displayName: Cargo Check (Release)
 
-      - job: Cargo_Build_Debug
-        dependsOn: [] 
-        steps:
-          - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-            displayName: Install Rust
+  #     - job: Cargo_Build_Debug
+  #       dependsOn: [] 
+  #       steps:
+  #         - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+  #           displayName: Install Rust
           
-          - bash: rustc --version && cargo --version
-            displayName: Print Rust & Cargo versions
+  #         - bash: rustc --version && cargo --version
+  #           displayName: Print Rust & Cargo versions
 
-          - bash: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
-            displayName: Install Rust targets
+  #         - bash: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
+  #           displayName: Install Rust targets
 
-          - bash: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            displayName: Install brew.sh
+  #         - bash: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  #           displayName: Install brew.sh
           
-          - bash: brew install xcodegen
-            displayName: Install XCodeGen
+  #         - bash: brew install xcodegen
+  #           displayName: Install XCodeGen
 
-          - bash: cargo install cargo-xcodebuild
-            displayName: Install XCodeBuild
+  #         - bash: cargo install cargo-xcodebuild
+  #           displayName: Install XCodeBuild
 
-          - bash: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
-            displayName: Copy original Cargo.toml
+  #         - bash: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
+  #           displayName: Copy original Cargo.toml
 
-          - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
-            displayName: Available Device IDs
+  #         - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
+  #           displayName: Available Device IDs
 
-          - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
-            displayName: Selected Device ID
+  #         - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
+  #           displayName: Selected Device ID
 
-          - bash: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
-            displayName: Change Device ID
+  #         - bash: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
+  #           displayName: Change Device ID
               
-          - bash: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
-            displayName: Diff changes in Cargo.toml
+  #         - bash: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
+  #           displayName: Diff changes in Cargo.toml
 
-          - bash: cargo xcodebuild build --verbose --package platform_ios
-            displayName: Cargo Build (Debug)
+  #         - bash: cargo xcodebuild build --verbose --package platform_ios
+  #           displayName: Cargo Build (Debug)
 
-          - publish: target/
-            artifact: Upload iOS Artifacts (Debug)
+  #         - publish: target/
+  #           artifact: Upload iOS Artifacts (Debug)
 
-      - job: Cargo_Build_Release
-        dependsOn: [] 
-        steps:
-          - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
-            displayName: Install Rust
+  #     - job: Cargo_Build_Release
+  #       dependsOn: [] 
+  #       steps:
+  #         - bash: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
+  #           displayName: Install Rust
           
-          - bash: rustc --version && cargo --version
-            displayName: Print Rust & Cargo versions
+  #         - bash: rustc --version && cargo --version
+  #           displayName: Print Rust & Cargo versions
 
-          - bash: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
-            displayName: Install Rust targets
+  #         - bash: rustup target add x86_64-apple-ios aarch64-apple-ios aarch64-apple-ios-sim
+  #           displayName: Install Rust targets
 
-          - bash: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            displayName: Install brew.sh
+  #         - bash: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  #           displayName: Install brew.sh
           
-          - bash: brew install xcodegen
-            displayName: Install XCodeGen
+  #         - bash: brew install xcodegen
+  #           displayName: Install XCodeGen
 
-          - bash: cargo install cargo-xcodebuild
-            displayName: Install XCodeBuild
+  #         - bash: cargo install cargo-xcodebuild
+  #           displayName: Install XCodeBuild
 
-          - bash: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
-            displayName: Copy original Cargo.toml
+  #         - bash: cp platform/ios/Cargo.toml platform/ios/Cargo.toml.original
+  #           displayName: Copy original Cargo.toml
 
-          - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
-            displayName: Available Device IDs
+  #         - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0]'
+  #           displayName: Available Device IDs
 
-          - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
-            displayName: Selected Device ID
+  #         - bash: xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0]'
+  #           displayName: Selected Device ID
 
-          - bash: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
-            displayName: Change Device ID
+  #         - bash: DEVICE_ID=$(xcrun simctl list devices available --json ios | jq '.devices | to_entries | map(select(.key | match(".*iOS.*"))) | map(.value)[0][0].udid'); cat platform/ios/Cargo.toml | sed "s/device_id = .*/device_id = $DEVICE_ID/g" | tee platform/ios/Cargo.toml
+  #           displayName: Change Device ID
               
-          - bash: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
-            displayName: Diff changes in Cargo.toml
+  #         - bash: diff platform/ios/Cargo.toml platform/ios/Cargo.toml.original || true
+  #           displayName: Diff changes in Cargo.toml
 
-          - bash: cargo xcodebuild build --verbose --package platform_ios --release
-            displayName: Cargo Build (Release)
+  #         - bash: cargo xcodebuild build --verbose --package platform_ios --release
+  #           displayName: Cargo Build (Release)
 
-          - publish: target/
-            artifact: Upload iOS Artifacts (Release)
+  #         - publish: target/
+  #           artifact: Upload iOS Artifacts (Release)
 
 
 
