@@ -210,6 +210,9 @@ jobs:
           name: Install JQ
           command: brew install jq
       - run:
+          name: Install FontConfig
+          command: brew install fontconfig
+      - run:
           name: Install Rust
           command: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile complete -y
       - run:
