@@ -2,9 +2,9 @@ name: Platform WebAssembly
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 env:
   CARGO_TERM_COLOR: always
@@ -17,35 +17,37 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-    - name: Cache target/
-      id: target-cache
-      uses: actions/cache@v3
-      with:
-        path: target
-        key: platform_webassembly-${{ runner.os }}-target
+      - name: Cache target/
+        id: target-cache
+        uses: actions/cache@v3
+        with:
+          path: target
+          key: platform_webassembly-${{ runner.os }}-target
 
-    - name: Install Rust
-      run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile minimal -y
-    - name: Install WASM-Pack
-      run:  curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh 
+      - name: Install Rust
+        run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile minimal -y
+      - name: Install WASM-Pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-    - name: Build (Debug)
-      run: wasm-pack build --dev platform/webassembly/ --package platform_webassembly
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "platform_webassembly_debug"
-        path: ./platform/webassembly/pkg
-        if-no-files-found: error 
+      - name: Build (Debug)
+        run: wasm-pack build --dev platform/webassembly/ --package platform_webassembly
+      - uses: actions/upload-artifact@v3
+        with:
+          name: "platform_webassembly_debug"
+          path: ./platform/webassembly/pkg
+          if-no-files-found: error
 
-    - name: Build (Release)
-      run: wasm-pack build platform/webassembly/ --package platform_webassembly
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "platform_webassembly_release"
-        path: ./platform/webassembly/pkg
-        if-no-files-found: error 
+      - name: Build (Release)
+        run: wasm-pack build platform/webassembly/ --package platform_webassembly
+      - uses: actions/upload-artifact@v3
+        with:
+          name: "platform_webassembly_release"
+          path: ./platform/webassembly/pkg
+          if-no-files-found: error
 
-    - name: Run Tests
-      run: wasm-pack test --node platform/webassembly/ --package platform_webassembly
+      - name: Run Tests
+        run: wasm-pack test --node platform/webassembly/ --package platform_webassembly

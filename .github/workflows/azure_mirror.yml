@@ -2,7 +2,7 @@ name: Azure Mirror
 
 on:
   push:
-    branches: [ "**" ]
+    branches: ["**"]
 
 jobs:
   azure_mirror:

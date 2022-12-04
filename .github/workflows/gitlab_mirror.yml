@@ -2,7 +2,7 @@ name: GitLab Mirror
 
 on:
   push:
-    branches: [ "**" ]
+    branches: ["**"]
 
 jobs:
   gitlab_mirror:

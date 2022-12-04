@@ -2,9 +2,9 @@ name: Shared
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 env:
   CARGO_TERM_COLOR: always
@@ -17,42 +17,44 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-    - name: Cache target/
-      id: target-cache
-      uses: actions/cache@v3
-      with:
-        path: target
-        key: shared-${{ runner.os }}-target
+      - name: Cache target/
+        id: target-cache
+        uses: actions/cache@v3
+        with:
+          path: target
+          key: shared-${{ runner.os }}-target
 
-    - name: Install Rust on Windows 
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: Invoke-WebRequest https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe -OutFile rustup-init.exe; ./rustup-init.exe --default-toolchain stable --profile minimal -y
-    - name: Install Rust on UNIX (Linux & macOS)
-      if: ${{ matrix.os != 'windows-latest' }}
-      run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile minimal -y
+      - name: Install Rust on Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: Invoke-WebRequest https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe -OutFile rustup-init.exe; ./rustup-init.exe --default-toolchain stable --profile minimal -y
+      - name: Install Rust on UNIX (Linux & macOS)
+        if: ${{ matrix.os != 'windows-latest' }}
+        run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile minimal -y
 
-    - name: Check
-      run: cargo check --verbose --package shared
-    - name: Build (Debug)
-      run: cargo build --verbose --package shared
-    - name: Build (Release)
-      run: cargo build --verbose --package shared --release
-    - name: Run Tests (Debug)
-      run: cargo test --verbose --no-default-features --no-fail-fast --package shared
-    - name: Run Tests (Release)
-      run: cargo test --verbose --no-default-features --no-fail-fast --package shared --release
+      - name: Check
+        run: cargo check --verbose --package shared
+      - name: Build (Debug)
+        run: cargo build --verbose --package shared
+      - name: Build (Release)
+        run: cargo build --verbose --package shared --release
+      - name: Run Tests (Debug)
+        run: cargo test --verbose --no-default-features --no-fail-fast --package shared
+      - name: Run Tests (Release)
+        run: cargo test --verbose --no-default-features --no-fail-fast --package shared --release
 
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "shared_debug_${{ matrix.os }}"
-        path: |
-          target/debug/libshare*
-          target/debug/share*
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "shared_release_${{ matrix.os }}"
-        path: |
-          target/release/libshare*
-          target/release/share*
+      - uses: actions/upload-artifact@v3
+        with:
+          name: "shared_debug_${{ matrix.os }}"
+          path: |
+            target/debug/libshare*
+            target/debug/share*
+      - uses: actions/upload-artifact@v3
+        with:
+          name: "shared_release_${{ matrix.os }}"
+          path: |
+            target/release/libshare*
+            target/release/share*
