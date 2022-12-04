@@ -24,7 +24,7 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 'Debug' option is available in the context menu for the task.
 */
 
-version = "2022.04"
+version = "2022.10"
 
 project {
 
@@ -59,8 +59,8 @@ object Build : BuildType({
             type = "cargo"
             executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
             param("cargo-build-package", "platform_linux")
-            param("cargo-test-no-default-features", "true")
             param("cargo-build-release", "true")
+            param("cargo-test-no-default-features", "true")
             param("cargo-toolchain", "stable")
             param("cargo-verbosity", "--verbose")
             param("cargo-bench-package", "platform_linux")
