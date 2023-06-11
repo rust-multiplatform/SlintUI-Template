@@ -14,8 +14,15 @@ all-tests = ["ui-tests"]
 crate-type = ["cdylib", "staticlib", "rlib"]
 
 [dependencies]
+<<<<<<< HEAD
 slint = "0.3.0"
 
 [build-dependencies]
 glob = "0.3.0"
 slint-build = "0.3.0"
+=======
+winit = "0.28"
+
+[target.'cfg(target_os = "android")'.dependencies]
+winit = { version = "0.28", features = ["android-native-activity"] }
+>>>>>>> upstream/main
