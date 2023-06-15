@@ -16,26 +16,9 @@ before_script:
 
 # Tasks
 script:
-<<<<<<< HEAD
-  # Debug
-  - cargo check --verbose --package shared
-  - cargo build --verbose --package shared
-  - cargo test --verbose --no-default-features --no-fail-fast --package shared
-  - cargo check --verbose --package platform_linux
-  - cargo build --verbose --package platform_linux
-  - cargo test --verbose --no-default-features --no-fail-fast --package platform_linux
-  # Release
-  - cargo check --release --verbose --package shared
-  - cargo build --release --verbose --package shared
-  - cargo test --release --verbose --no-default-features --no-fail-fast --package shared
-  - cargo check --release --verbose --package platform_linux
-  - cargo build --release --verbose --package platform_linux
-  - cargo test --release --verbose --no-default-features --no-fail-fast --package platform_linux
-=======
   # Shared
   - cargo build --release --verbose --package shared
   - cargo test --release --verbose --no-default-features --no-fail-fast --package shared
   # Platform
   - cargo build --release --verbose --package platform_${TRAVIS_OS_NAME}
   - cargo test --release --verbose --no-default-features --no-fail-fast --package platform_${TRAVIS_OS_NAME}
->>>>>>> upstream/main

@@ -101,8 +101,6 @@ stages:
           - bash: cargo test --verbose --no-default-features --no-fail-fast --package platform_macos --release
             displayName: Cargo Test (Release)
 
-<<<<<<< HEAD
-=======
   - stage: iOS
     dependsOn: macOS
     pool:
@@ -191,7 +189,6 @@ stages:
           - publish: target/
             artifact: Upload Android Artifacts (Release)
 
->>>>>>> upstream/main
   - stage: WebAssembly
     dependsOn: Linux
     pool:
