@@ -7,6 +7,13 @@
 [![Rust](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_windows.yml/badge.svg)](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_windows.yml)
 [![Rust](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/shared.yml/badge.svg)](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/shared.yml)
 
+[![Rust](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_android.yml/badge.svg)](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_android.yml)
+[![Rust](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_ios.yml/badge.svg)](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_ios.yml)
+[![Rust](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_linux.yml/badge.svg)](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_linux.yml)
+[![Rust](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_macos.yml/badge.svg)](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_macos.yml)
+[![Rust](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_windows.yml/badge.svg)](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/platform_windows.yml)
+[![Rust](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/shared.yml/badge.svg)](https://github.com/rust-multiplatform/Base-Project-Template/actions/workflows/shared.yml)
+
 > ⚠️ THIS IS A TEMPLATE. ⚠️
 
 This project is supported by the following platforms:
