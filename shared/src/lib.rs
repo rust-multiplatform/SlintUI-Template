@@ -9,5 +9,5 @@ slint::include_modules!();
 pub fn entrypoint() {
     println!("Hello from Rust!");
 
-    HelloWorld::new().run();
+    HelloWorld::new().unwrap().run().unwrap();
 }
