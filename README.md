@@ -35,8 +35,8 @@ This project is supported by the following platforms:
 - ✅ Platform: Windows
 - ✅ Platform: Linux
 - ✅ Platform: macOS
-- ⚠️ Platform: Android (EGL issue, see [here](https://github.com/slint-ui/slint/issues/46))
-- ✅ Platform: iOS
+- ❌ Platform: Android
+- ❌ Platform: iOS
 - ✅ Platform: WebAssembly (⚠️ Only the WASM & JS side, still needs a web-server or bundler and HTML/CSS part)
 
 To use this project simply fork it (button in top right corner) into your own namespace.
