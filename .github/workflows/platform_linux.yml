@@ -46,11 +46,6 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: "platform_linux_debug_${{ matrix.target }}"
-          path: target/${{ matrix.target }}/debug/platform_linux
-          if-no-files-found: error
-      - uses: actions/upload-artifact@v3
-        with:
           name: "platform_linux_release_${{ matrix.target }}"
           path: target/${{ matrix.target }}/release/platform_linux
           if-no-files-found: error
