@@ -41,13 +41,13 @@ jobs:
       - name: Run Tests
         run: cargo test --verbose --no-default-features --no-fail-fast --package shared --release
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "shared_debug_${{ matrix.os }}"
           path: |
             target/debug/libshare*
             target/debug/share*
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "shared_release_${{ matrix.os }}"
           path: |
@@ -117,7 +117,7 @@ jobs:
         run: cargo test --verbose --package platform_linux --no-default-features --no-fail-fast --target ${{ matrix.target }} --release
         continue-on-error: true
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "platform_linux_release_${{ matrix.target }}"
           path: target/${{ matrix.target }}/release/platform_linux
@@ -157,7 +157,7 @@ jobs:
         run: cargo test --verbose --package platform_macos --no-default-features --no-fail-fast --target ${{ matrix.target }} --release
         continue-on-error: true
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "platform_macos_release_${{ matrix.target }}"
           path: target/${{ matrix.target }}/release/platform_macos
@@ -197,7 +197,7 @@ jobs:
         run: cargo test --verbose --package platform_windows --no-default-features --no-fail-fast --target ${{ matrix.target }} --release
         continue-on-error: true
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "platform_windows_release_${{ matrix.target }}"
           path: target/${{ matrix.target }}/release/platform_windows.exe
@@ -230,7 +230,7 @@ jobs:
       - name: Build
         run: wasm-pack build platform/webassembly/ --package platform_webassembly
         
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "platform_webassembly_release"
           path: ./platform/webassembly/pkg
@@ -285,7 +285,7 @@ jobs:
       # Testing can't be done on Android.
       # However, we are testing on the `shared` code and other architectures.
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "platform_android_release_multi"
           path: target/release/apk/
@@ -346,7 +346,7 @@ jobs:
       # Testing can't be done on iOS.
       # However, we are testing on the `shared` code and other architectures.
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "platform_ios_release_multi"
           path: target/xcodegen/platform_ios/build/Build/Products/Release-iphonesimulator
